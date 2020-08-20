@@ -227,7 +227,7 @@ textarea {
 video {
   background: #222;
   margin: 0 0 20px 0;
-  --width: 100%;
+  width: 100%;
   width: var(--width);
   height: calc(var(--width) * 0.75);
 }
@@ -282,7 +282,7 @@ p.borderBelow {
 
 video {
   vertical-align: top;
-  --width: 25vw;
+  --width: 10vw;
   width: var(--width);
   height: calc(var(--width) * 0.5625);
 }
@@ -291,6 +291,17 @@ video:last-of-type {
   margin: 0 0 20px 0;
 }
 
+div .mainVideoPanel #main {
+	width: 75%;
+	height: auto;
+}
+
 video#gumVideo {
   margin: 0 20px 20px 0;
+}
+
+div#instructionPanel {
+	display: : block;
+	height: 100px;
+	widows: 100%;
 }
