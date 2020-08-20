@@ -17,6 +17,7 @@ let mediaRecorder;
 let recordedBlobs;
 let firstRecording;
 let secondRecording;
+let finalRecording;
 
 let playback = false;
 let clip = 0;
@@ -51,18 +52,18 @@ mainVideo.addEventListener('ended', () => {
 				clip++;
 				break;
 			default:
-				download.style.display = 'block';
-				downloadButton.disabled = false;
+				replayButton.style.display = 'block';
 				break;
 		}
 	} else {
 		switch (mainVideo.src)
 		{
 			case window.location.origin + '/videos/Intro_edited.mp4':
+				messageElement.innerHTML = 'What will you say to Sarah?<br><br>Remember to show Respect in your reply:	<br>&#x2022;	Make her feel comfortable	<br>&#x2022;	Give her your full attention';
+				startRecording();
 				mainVideo.src = 'videos/Listening loop 2.mp4';
 				mainVideo.loop = true;
 				mainVideo.play();
-				startRecording();
 				endFirstButton.style.display = 'block';
 				break;
 			case window.location.origin + '/videos/Response%201.2.mp4':
@@ -78,9 +79,7 @@ mainVideo.addEventListener('ended', () => {
 				secondRecording = new Blob(recordedBlobs, {type: 'video/webm'});
 				videoCall.style.display = 'none';
 				messageElement.innerText = 'You\'re about to see the conversation again from Sarah\'s perspective.\r\rReflect on your responses and think about anything you would do differently next time.'; 
-				setTimeout(() => {
-					replay();
-				}, 10000);
+				startReplayButton.style.display = 'block';
 				break;
 		}
 	}
@@ -118,12 +117,12 @@ playButton.addEventListener('click', () => {
 const downloadButton = document.querySelector('button#download');
 downloadButton.style.display = 'none';
 downloadButton.addEventListener('click', () => {
-  const blob = new Blob([], {type: 'video/webm'});
+  const blob = new Blob(recordedBlobs, {type: 'video/webm'});
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.style.display = 'none';
   a.href = url;
-  a.download = 'test.webm';
+  a.download = 'final.webm';
   document.body.appendChild(a);
   a.click();
   setTimeout(() => {
@@ -137,6 +136,15 @@ saveButton.style.display = 'none';
 saveButton.addEventListener('click', () => {
   const blob = new Blob(recordedBlobs, {type: 'video/webm'});
   const url = window.URL.createObjectURL(blob);
+});
+
+const startFirstButton = document.querySelector('button#startFirst');
+startFirstButton.style.display = 'none';
+startFirstButton.addEventListener('click', () => {
+	startFirstButton.style.display = 'none';
+	videoCallElement.style.display = "block";
+	mainVideo.src = 'videos/Intro_edited.mp4';
+	mainVideo.play();
 });
 
 const endFirstButton = document.querySelector('button#endFirst');
@@ -159,14 +167,27 @@ endSecondButton.addEventListener('click', () => {
 	mainVideo.play();
 });
 
-function replay() {
-	messageElement.innerText = '';
+const startReplayButton = document.querySelector('button#startReplay');
+startReplayButton.style.display = 'none';
+startReplayButton.addEventListener('click', () => {
+	startReplayButton.style.display = 'none';
+	stopStream();
 	videoCall.style.display = 'block';
 	previewVideo.style.display = 'none';
 	playback = true;
+	replay();
+});
+
+const replayButton = document.querySelector('button#replay');
+replayButton.style.display = 'none';
+replayButton.addEventListener('click', () => {
+	replayButton.style.display = 'none';
+	replay();
+});
+
+function replay() {
 	clip = 0;
 	mainVideo.src = 'videos/Intro_edited.mp4';
-	mainVideo.controls = true;
 	mainVideo.play();
 }
 
@@ -175,17 +196,6 @@ function handleDataAvailable(event) {
   if (event.data && event.data.size > 0) {
     recordedBlobs.push(event.data);
   }
-}
-
-function startStageOne() {
-	messageElement.innerText = "Sarah, a member of your team has just called you for a chat...";
-	start.style.display = 'none';
-	setTimeout(() => {
-		messageElement.innerText = "";
-		videoCallElement.style.display = "block";
-		mainVideo.src = 'videos/Intro_edited.mp4';
-		mainVideo.play();
-	}, 10000);
 }
 
 function startRecording() {
@@ -228,6 +238,10 @@ function startRecording() {
 function stopRecording() {
   mediaRecorder.stop();
 }
+	
+function stopStream(stream) {
+  window.stream.getTracks().forEach(track => track.stop());
+}
 
 function handleSuccess(stream) {
   recordButton.disabled = false;
@@ -237,8 +251,11 @@ function handleSuccess(stream) {
   const previewVideo = document.querySelector('video#preview');
   previewVideo.srcObject = stream;
   
-  startStageOne();
+  //startStageOne();
 
+  messageElement.innerText = "Sarah, a member of your team has just called you for a chat...";
+  start.style.display = 'none';
+  startFirstButton.style.display = 'block';
 }
 
 async function init(constraints) {
@@ -262,3 +279,4 @@ document.querySelector('button#start').addEventListener('click', async () => {
   await init(constraints);
 });
 
+messageElement.innerText = 'Lloyds Mental Health PoC\n\nClick Start to begin';

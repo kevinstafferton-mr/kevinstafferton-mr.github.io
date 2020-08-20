@@ -280,6 +280,17 @@ p.borderBelow {
   padding: 0 0 20px 0;
 }
 
+div#buttons {
+	display: block;
+	height: 40px;
+}
+
+div#instructionPanel {
+	display: block;
+	height: 150px;
+	font-size: 18pt;
+}
+
 video {
   vertical-align: top;
   --width: 10vw;
@@ -300,8 +311,3 @@ video#gumVideo {
   margin: 0 20px 20px 0;
 }
 
-div#instructionPanel {
-	display: : block;
-	height: 100px;
-	widows: 100%;
-}
