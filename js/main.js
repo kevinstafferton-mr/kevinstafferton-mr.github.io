@@ -59,26 +59,23 @@ mainVideo.addEventListener('ended', () => {
 		switch (mainVideo.src)
 		{
 			case window.location.origin + '/videos/Intro_edited.mp4':
-				messageElement.innerHTML = 'What will you say to Sarah?<br><br>Remember to show Respect in your reply:	<br>&#x2022;	Make her feel comfortable	<br>&#x2022;	Give her your full attention';
-				startRecording();
+				messageElement.innerHTML = 'Sarah\'s waiting for your reply. You\'ll need to talk into your device to deliver your message - just like you would on a real video call.<br><br>She\'s waiting and listening, there is no limit on your response. Just think about what you want to say, and deliver it in your own, authentic way.<br><img src="images/phone.png" width="90" height="77" /><b>Select NEXT to speak your reply</b>';
 				mainVideo.src = 'videos/Listening loop 2.mp4';
 				mainVideo.loop = true;
 				mainVideo.play();
-				endFirstButton.style.display = 'block';
+				recordFirstButton.style.display = 'block';
 				break;
 			case window.location.origin + '/videos/Response%201.2.mp4':
 				firstRecording = new Blob(recordedBlobs, {type: 'video/webm'});
-				messageElement.innerText = "Start to empathise by asking an open question to find out more about Sarah's situation"; 
-				startRecording();
+				messageElement.innerHTML = 'How will you move the conversation on? Think of an open question to ask that will help you better understand Sarah\'s situation.<br><br><img src="images/phone.png" width="90" height="77" /><b>Select NEXT to speak your reply.</b>';
 				mainVideo.src = 'videos/Listening loop 2.mp4';
 				mainVideo.loop = true;
 				mainVideo.play();
-				endSecondButton.style.display = 'block';
+				recordSecondButton.style.display = 'block';
 				break;
 			case window.location.origin + '/videos/Response%202.2.mp4':
 				secondRecording = new Blob(recordedBlobs, {type: 'video/webm'});
-				videoCall.style.display = 'none';
-				messageElement.innerText = 'You\'re about to see the conversation again from Sarah\'s perspective.\r\rReflect on your responses and think about anything you would do differently next time.'; 
+				messageElement.innerHTML = 'You\'re about to see the conversation again from Sarah\'s perspective.<br><br>Reflect on your responses and think about anything you would do differently next time.'; 
 				startReplayButton.style.display = 'block';
 				break;
 		}
@@ -142,25 +139,48 @@ const startFirstButton = document.querySelector('button#startFirst');
 startFirstButton.style.display = 'none';
 startFirstButton.addEventListener('click', () => {
 	startFirstButton.style.display = 'none';
-	videoCallElement.style.display = "block";
-	mainVideo.src = 'videos/Intro_edited.mp4';
-	mainVideo.play();
+	document.querySelector('audio#ringtone').play();
+	setTimeout(() => {
+		mainVideo.src = 'videos/Intro_edited.mp4';
+		mainVideo.play();
+	}, 2000);
+
+});
+
+const recordFirstButton = document.querySelector('button#recordFirst');
+recordFirstButton.style.display = 'none';
+recordFirstButton.addEventListener('click', () => {
+	recordFirstButton.style.display = 'none';
+	messageElement.innerHTML = '<b>Speak now!</b><br><br>What will you say to Sarah?<br><br>Remember to show Respect in your reply:	<br>&#x2022;	Make her feel comfortable	<br>&#x2022;	Give her your full attention<br><br><b>When you\'re finished recording your response, select END';
+	startRecording();
+	endFirstButton.style.display = 'block';
 });
 
 const endFirstButton = document.querySelector('button#endFirst');
 endFirstButton.style.display = 'none';
 endFirstButton.addEventListener('click', () => {
 	stopRecording();
+	messageElement.innerHTML = "";
 	endFirstButton.style.display = 'none';
 	mainVideo.src = 'videos/Response 1.2.mp4';
 	mainVideo.loop = false;
 	mainVideo.play();
 });
 
+const recordSecondButton = document.querySelector('button#recordSecond');
+recordSecondButton.style.display = 'none';
+recordSecondButton.addEventListener('click', () => {
+	recordSecondButton.style.display = 'none';
+	messageElement.innerHTML = '<b>Speak now!</b><br><br>Start to empathise by asking an open question to find out more about Sarah\'s situation<br><br><b>When you\'re finished recording your response, select END.'; 
+	startRecording();
+	endSecondButton.style.display = 'block';
+});
+
 const endSecondButton = document.querySelector('button#endSecond');
 endSecondButton.style.display = 'none';
 endSecondButton.addEventListener('click', () => {
 	stopRecording();
+	messageElement.innerHTML = "";
 	endSecondButton.style.display = 'none';
 	mainVideo.src = 'videos/Response 2.2.mp4';
 	mainVideo.loop = false;
@@ -251,8 +271,6 @@ function handleSuccess(stream) {
   const previewVideo = document.querySelector('video#preview');
   previewVideo.srcObject = stream;
   
-  //startStageOne();
-
   messageElement.innerText = "Sarah, a member of your team has just called you for a chat...";
   start.style.display = 'none';
   startFirstButton.style.display = 'block';
@@ -279,4 +297,5 @@ document.querySelector('button#start').addEventListener('click', async () => {
   await init(constraints);
 });
 
-messageElement.innerText = 'Lloyds Mental Health PoC\n\nClick Start to begin';
+videoCallElement.style.display = 'block';
+messageElement.innerHTML = '<h2>Lloyds Mental Health PoC</h2><br><br><b>Click Start to begin</b>';

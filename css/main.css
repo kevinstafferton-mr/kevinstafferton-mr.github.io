@@ -230,6 +230,7 @@ video {
   width: 100%;
   width: var(--width);
   height: calc(var(--width) * 0.75);
+  float: left;
 }
 
 ul {
@@ -285,10 +286,19 @@ div#buttons {
 	height: 40px;
 }
 
+div#videoCall {
+	display: block;
+	clear: both;
+}
+
 div#instructionPanel {
 	display: block;
-	height: 150px;
-	font-size: 18pt;
+	clear: both;
+	background-color: lightgray;
+	margin-bottom: 10px;
+	padding: 10px;
+	height: 11em;
+	font-size: 16pt;
 }
 
 video {

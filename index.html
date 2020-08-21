@@ -6,8 +6,22 @@
 </head>
 <body>
 <div id="container">
-	<div id='instructionPanel'>
-		<span id='instruction'></span>
+	<div id="videoCall">
+		<div class="mainVideoPanel">
+			<video id="main" playsinline></video>
+		</div>
+		<div class="previewVideoPanel">
+			<video id="preview" playsinline autoplay muted></video>
+		</div>
+		<div>
+			<audio id="ringtone" src="audio/ringtone.mp3" type="audio/mpeg"></audio>
+		</div>
+	</div>
+    <div>
+        <span id="errorMsg"></span>
+    </div>
+	<div id="instructionPanel">
+		<span id="instruction"></span>
 	</div>
 	<div id="buttons">
 		<button id="start">Start</button>
@@ -16,22 +30,13 @@
 		<button id="download">Download</button>
 		<button id="save">Save</button>
 		<button id="startFirst">Next</button>
-		<button id="endFirst">Next</button>
+		<button id="recordFirst">Next</button>
+		<button id="endFirst">End</button>
+		<button id="recordSecond">Next</button>
+		<button id="endSecond">End</button>
 		<button id="startReplay">Next</button>
-		<button id="endSecond">Next</button>
 		<button id="replay">Replay</button>
 	</div>
-	<div id='videoCall'>
-		<div class='mainVideoPanel'>
-			<video id="main" playsinline></video>
-		</div>
-		<div class='previewVideoPanel'>
-			<video id="preview" playsinline autoplay muted></video>
-		</div>
-	</div>
-    <div>
-        <span id="errorMsg"></span>
-    </div>
 </div>
 
 <!-- include adapter for srcObject shim -->
