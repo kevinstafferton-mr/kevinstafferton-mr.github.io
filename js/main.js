@@ -59,7 +59,7 @@ mainVideo.addEventListener('ended', () => {
 		switch (mainVideo.src)
 		{
 			case window.location.origin + '/videos/Intro_edited.mp4':
-				messageElement.innerHTML = 'Sarah\'s waiting for your reply. You\'ll need to talk into your device to deliver your message - just like you would on a real video call.<br><br>She\'s waiting and listening, there is no limit on your response. Just think about what you want to say, and deliver it in your own, authentic way.<br><img src="images/phone.png" width="90" height="77" /><b>Select NEXT to speak your reply</b>';
+				messageElement.innerHTML = 'Sarah\'s waiting for your reply. You\'ll need to talk into your device to deliver your message - just like you would on a real video call.<br><br>You need to:<br>&#x2022; Thank her for calling<br>&#x2022; Reassure her you\'re listening<br><br>She\'s waiting and listening, there is no limit on your response. Just think about what you want to say, and deliver it in your own, authentic way.<br><img src="images/phone.png" width="90" height="77" /><b>Select START RECORDING to speak your reply</b>';
 				mainVideo.src = 'videos/Listening loop 2.mp4';
 				mainVideo.loop = true;
 				mainVideo.play();
@@ -67,7 +67,7 @@ mainVideo.addEventListener('ended', () => {
 				break;
 			case window.location.origin + '/videos/Response%201.2.mp4':
 				firstRecording = new Blob(recordedBlobs, {type: 'video/webm'});
-				messageElement.innerHTML = 'How will you move the conversation on? Think of an open question to ask that will help you better understand Sarah\'s situation.<br><br><img src="images/phone.png" width="90" height="77" /><b>Select NEXT to speak your reply.</b>';
+				messageElement.innerHTML = 'How will you move the conversation on? Think of an open question to ask that will help you better understand Sarah\'s situation.<br><br><img src="images/phone.png" width="90" height="77" /><b>Select START RECORDING to speak your reply.</b>';
 				mainVideo.src = 'videos/Listening loop 2.mp4';
 				mainVideo.loop = true;
 				mainVideo.play();
@@ -151,7 +151,7 @@ const recordFirstButton = document.querySelector('button#recordFirst');
 recordFirstButton.style.display = 'none';
 recordFirstButton.addEventListener('click', () => {
 	recordFirstButton.style.display = 'none';
-	messageElement.innerHTML = '<b>Speak now!</b><br><br>What will you say to Sarah?<br><br>Remember to show Respect in your reply:	<br>&#x2022;	Make her feel comfortable	<br>&#x2022;	Give her your full attention<br><br><b>When you\'re finished recording your response, select END';
+	messageElement.innerHTML = '<b>Speak now!</b><br><br>What will you say to Sarah?<br><br>You need to:<br> &#x2022; Thank her for calling<br> &#x2022; Reassure her you\'re listening<br><br>Remember to show <b>Respect</b> in your reply by:<br>Making her feel comfortable<br>Giving her your full attention<br><br><b>When you\'re finished recording your response, select END';
 	startRecording();
 	endFirstButton.style.display = 'block';
 });
@@ -171,7 +171,7 @@ const recordSecondButton = document.querySelector('button#recordSecond');
 recordSecondButton.style.display = 'none';
 recordSecondButton.addEventListener('click', () => {
 	recordSecondButton.style.display = 'none';
-	messageElement.innerHTML = '<b>Speak now!</b><br><br>Start to empathise by asking an open question to find out more about Sarah\'s situation<br><br><b>When you\'re finished recording your response, select END.'; 
+	messageElement.innerHTML = '<b>Speak now!</b><br><br>Start to <b>Empathise</b>:<br> &#x2022; Ask an open question to find out more about Sarah\'s situation<br><br><b>When you\'re finished recording your response, select END.'; 
 	startRecording();
 	endSecondButton.style.display = 'block';
 });
